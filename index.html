@@ -192,6 +192,77 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
+        .calendar-wrapper {
+            position: relative;
+        }
+
+        .calendar-fallback {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .fallback-content h4 {
+            color: #2d4a3e;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .fallback-content p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .calendar-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .calendar-button {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .calendar-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5);
+        }
+
+        .sample-events {
+            background: #f8fffe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .sample-events h5 {
+            color: #2d4a3e;
+            margin-bottom: 15px;
+        }
+
+        .sample-events ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .sample-events li {
+            padding: 8px 0;
+            color: #555;
+        }
+
         /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, #2d4a3e 0%, #4caf50 100%);
@@ -333,12 +404,38 @@
                 <div class="container">
                     <div class="calendar-container">
                         <h3>🗓️ Upcoming Events</h3>
-                        <iframe src="https://calendar.google.com/calendar/embed?src=5560ae2bddce5c078d470e339afe24cbb3f8f9d1ce09d46e182d385fd6dcd07a%40group.calendar.google.com&ctz=Africa%2FJohannesburg" 
-                                width="800" 
-                                height="600" 
-                                frameborder="0" 
-                                scrolling="no">
-                        </iframe>
+                        <div class="calendar-wrapper">
+                            <iframe id="calendar-iframe" 
+                                    src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Africa%2FJohannesburg&src=NTU2MGFlMmJkZGNlNWMwNzhkNDcwZTMzOWFmZTI0Y2JiM2Y4ZjlkMWNlMDlkNDZlMTgyZDM4NWZkNmRjZDA3YUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" 
+                                    style="border:solid 1px #777" 
+                                    width="800" 
+                                    height="600" 
+                                    frameborder="0" 
+                                    scrolling="no">
+                            </iframe>
+                            <div class="calendar-fallback" id="calendar-fallback" style="display: none;">
+                                <div class="fallback-content">
+                                    <h4>📅 Events Calendar</h4>
+                                    <p>Having trouble loading our events calendar?</p>
+                                    <div class="calendar-links">
+                                        <a href="https://calendar.google.com/calendar/u/0?cid=NTU2MGFlMmJkZGNlNWMwNzhkNDcwZTMzOWFmZTI0Y2JiM2Y4ZjlkMWNlMDlkNDZlMTgyZDM4NWZkNmRjZDA3YUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" 
+                                           target="_blank" 
+                                           class="calendar-button">View Full Calendar</a>
+                                        <a href="https://calendar.google.com/calendar/ical/5560ae2bddce5c078d470e339afe24cbb3f8f9d1ce09d46e182d385fd6dcd07a%40group.calendar.google.com/public/basic.ics" 
+                                           class="calendar-button">Add to Your Calendar</a>
+                                    </div>
+                                    <div class="sample-events">
+                                        <h5>Recent Activities:</h5>
+                                        <ul>
+                                            <li>🌱 Community River Cleanup</li>
+                                            <li>🦅 Bird Watching Walk</li>
+                                            <li>📚 Conservation Education Workshop</li>
+                                            <li>🤝 Monthly Committee Meeting</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -419,12 +516,29 @@
 
         // Add loading animation for calendar
         window.addEventListener('load', function() {
-            const iframe = document.querySelector('iframe');
+            const iframe = document.querySelector('#calendar-iframe');
+            const fallback = document.querySelector('#calendar-fallback');
+            
             if (iframe) {
                 iframe.style.opacity = '0';
                 iframe.style.transition = 'opacity 0.5s ease';
+                
+                // Set a timeout to show fallback if calendar doesn't load
+                const loadTimeout = setTimeout(() => {
+                    iframe.style.display = 'none';
+                    fallback.style.display = 'block';
+                }, 5000);
+                
                 iframe.addEventListener('load', function() {
+                    clearTimeout(loadTimeout);
                     this.style.opacity = '1';
+                });
+                
+                // Also handle iframe errors
+                iframe.addEventListener('error', function() {
+                    clearTimeout(loadTimeout);
+                    iframe.style.display = 'none';
+                    fallback.style.display = 'block';
                 });
             }
         });
