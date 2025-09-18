@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swellendam Conservancy - We Create Space for Locals to Thrive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2d4a3e;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(45, 74, 62, 0.8), rgba(45, 74, 62, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><pattern id="mountains" x="0" y="0" width="200" height="100" patternUnits="userSpaceOnUse"><polygon points="0,100 50,20 100,60 150,10 200,100" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="1200" height="600" fill="url(%23mountains)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(76, 175, 80, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(139, 195, 74, 0.2) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h2 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            margin-top: -50px;
+            position: relative;
+            z-index: 3;
+            border-radius: 20px 20px 0 0;
+            padding: 60px 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .content-card {
+            background: #f8fffe;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #4caf50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .content-card h3 {
+            color: #2d4a3e;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-card h3::before {
+            content: '🌿';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .content-card p, .content-card li {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .content-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .content-card a {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .content-card a:hover {
+            color: #2d4a3e;
+            text-decoration: underline;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background: #f0f7f0;
+            padding: 40px 0;
+            margin: 40px 0;
+            border-radius: 15px;
+        }
+
+        .calendar-container {
+            text-align: center;
+        }
+
+        .calendar-container h3 {
+            color: #2d4a3e;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .calendar-container iframe {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #2d4a3e 0%, #4caf50 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-item a {
+            color: #b8e6c1;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a2e23;
+            color: #b8e6c1;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .legal-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .legal-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-container iframe {
+                height: 400px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .content-card:nth-child(1) { animation-delay: 0.1s; }
+        .content-card:nth-child(2) { animation-delay: 0.2s; }
+        .content-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Swellendam Conservancy</h1>
+                <h2>We create space for locals to thrive</h2>
+                <a href="#about" class="cta-button">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="content-grid">
+                <!-- About Card -->
+                <div class="content-card" id="about">
+                    <h3>About Us</h3>
+                    <p>The conservancy promotes community action to achieve better environmental outcomes. It focuses on river systems and remnant veld around Swellendam. We try to solve problems through exciting solutions by bringing people and systems together to the benefit of man and beast.</p>
+                </div>
+
+                <!-- Maps Card -->
+                <div class="content-card">
+                    <h3>Maps & Resources</h3>
+                    <p><a href="http://www.swellendamconservancy.org.za/sbc-map-range.pdf" target="_blank">📋 Conservancy Range Map</a></p>
+                    <p><a href="http://www.swellendamconservancy.org.za/cck-meent.pdf" target="_blank">🗺️ Commonage (Meent) of Swellendam</a></p>
+                    <p><a href="http://www.swellendamconservancy.org.za/sbc-grondwet.pdf" target="_blank">📄 Download Constitution (PDF)</a></p>
+                </div>
+
+                <!-- Join Card -->
+                <div class="content-card">
+                    <h3>Join Our Mission</h3>
+                    <p>Landowners, businesses and members of the general public in the Swellendam area are welcome to join the conservancy. Together, we can make a difference for our local environment and community.</p>
+                    <p><a href="#contact">Get in touch to learn how you can contribute! 💚</a></p>
+                </div>
+            </div>
+
+            <!-- Events Calendar -->
+            <div class="calendar-section">
+                <div class="container">
+                    <div class="calendar-container">
+                        <h3>🗓️ Upcoming Events</h3>
+                        <iframe src="https://calendar.google.com/calendar/embed?src=5560ae2bddce5c078d470e339afe24cbb3f8f9d1ce09d46e182d385fd6dcd07a%40group.calendar.google.com&ctz=Africa%2FJohannesburg" 
+                                width="800" 
+                                height="600" 
+                                frameborder="0" 
+                                scrolling="no">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>Ready to join our conservation efforts or have questions? We'd love to hear from you!</p>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4>📞 Phone</h4>
+                    <p><a href="tel:+27810198232">+27-81-019 8232</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h4>✉️ Email</h4>
+                    <p><a href="mailto:info@swellendamconservancy.org.za">info@swellendamconservancy.org.za</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h4>🌐 Website</h4>
+                    <p><a href="https://www.swellendamconservancy.org.za" target="_blank">swellendamconservancy.org.za</a></p>
+                </div>
+                
+                <div class="contact-item">
+                    <h4>📱 Social Media</h4>
+                    <p><a href="https://fb.me/Swellendamconservancy" target="_blank">Facebook</a></p>
+                    <p><a href="https://www.instagram.com/swellendamconservancy" target="_blank">Instagram</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3>Legal Status</h3>
+            <div class="legal-status">
+                <div class="legal-item">
+                    <strong>Cape Nature</strong><br>
+                    Registered Conservancy
+                </div>
+                <div class="legal-item">
+                    <strong>NPC</strong><br>
+                    Non Profit Company<br>
+                    2021/780665/08
+                </div>
+                <div class="legal-item">
+                    <strong>NPO</strong><br>
+                    Non Profit Organization<br>
+                    269-750 NPO
+                </div>
+                <div class="legal-item">
+                    <strong>PBO</strong><br>
+                    Public Benefit Organization<br>
+                    930077628
+                </div>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.7;">Last updated: 28 March 2023</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Add loading animation for calendar
+        window.addEventListener('load', function() {
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                iframe.style.opacity = '0';
+                iframe.style.transition = 'opacity 0.5s ease';
+                iframe.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all content cards
+        document.querySelectorAll('.content-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
